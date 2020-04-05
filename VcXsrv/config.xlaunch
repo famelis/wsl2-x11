@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XLaunch 
+	WindowMode="Windowed" 
+	Display="-1" 
+	Wgl="True" 
+	DisableAC="True" 
+	Clipboard="True" 
+	ClipboardPrimary="True" 
+	ClientMode="StartProgram" 
+	LocalClient="True" 
+	LocalProgram="start.bat" 
+	RemoteProgram="xterm" RemotePassword="" PrivateKey="" RemoteHost="" RemoteUser="" 
+	XDMCPHost="" XDMCPBroadcast="False" XDMCPIndirect="False" XDMCPTerminate="False"
+	ExtraParams="" 
+/>
