@@ -11,14 +11,15 @@ This was caused from the fact that `WSL2` is based on containers, and for that r
 The solutions that were proposed had to do with the use of the dynamic **IP** that was assigned to the host, but they didn't work.
 
 ## The solution
-After some experimenting, it was clear, that the host was given **two IPs**.
+After some ideas from [WSL/issues/4793](https://github.com/microsoft/WSL/issues/4793#issuecomment-577232999), [WSL/issues/4619](https://github.com/microsoft/WSL/issues/4619) and some experimenting, it was clear,
+that the host was given **two IPs**.
 One from an **172.*.*.* network** that was from **the Container/WSL side** and
 one fron an **192.168.*.* network** that was from **the Host/Windows side**.
 
 In order for the **X server**, that was running on **the Host/Windows side**, to accept the connection,
-the **DISPLAY** had to be **an IP** from the **the Host/Windows side**.
+the **DISPLAY** had to be **an IP** from **the Host/Windows side**.
 
-Actually the solution is 
+For the time being, the solution is 
 ```bash
 export DISPLAY=$(ipconfig.exe | grep IPv4 | cut -d: -f2 | sed -n -e '/^ 172/d' -e 's/ \([0-9\.]*\).*/\1:0.0/p')
 ```
