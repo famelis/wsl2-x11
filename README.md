@@ -36,4 +36,5 @@ and launch a **[kde desktop](https://kde.org/)**. The installed Distro is a **[D
 + Put the, supplied here, **VcXsrv** directory, in your windows HOME directory, (in windows **"C:\Users\\&lt;yourUserName>"**, in WSL **"/mnt/c/Users/&lt;yourUserName>"**)
 + In WSL after **cd "/mnt/c/Users/&lt;yourUserName>/VcXsrv"** run **"bash ./1_wsl_prepare_files.sh"**
 + In Administrator's Powershell after **cd "C:\Users\\&lt;yourUserName>\VcXsrv"** run **".\2_admin_copy_files.bat"**
-+ After the above you can run either **"bash init_x.sh"** in WSL or **".\init_x.bat"** in Administrator's Powershell to see the windowed Desktop environment to appear (fingers crossed...)
++ After the above you can run either **"bash init_x.sh"** in WSL or **".\init_x.bat"** in Administrator's Powershell to see the windowed Desktop Environment to appear (fingers crossed...)
++ If you want the windowed Desktop Environment to be started when your login then create a symlink (short-cut) of the **"init_x.bat"**, cut it, go to your Startup directory. (Win-X -> Run -> shell:startup) and paste it there.
