@@ -27,3 +27,13 @@ export DISPLAY=$(ipconfig.exe | grep IPv4 | cut -d: -f2 | sed -n -e '/^ 172/d' -
 ## The automation
 For the time being the files work with the **[VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/)**
 and launch a **[kde desktop](https://kde.org/)**. The installed Distro is a **[Debian/GNU Linux](https://www.debian.org/)**
+
+## How to use
++ Install **WSL2** and the **Debian** distribution. 
++ Update Debian and install kde-desktop, net-tools, dbus, dnsutils etc.
++ If you prefer another desktop environment, you will have to change the **start_desktop.sh** after next step.
++ Install **[VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/)** in the default directory (In windows **"C:\Program Files\VcXsrv"**, in WSL **"/mnt/c/Program Files/VcXsrv"**)
++ Put the, supplied here, **VcXsrv** directory, in your windows HOME directory, (in windows **"C:\Users\\&lt;yourUserName>"**, in WSL **"/mnt/c/Users/&lt;yourUserName>"**)
++ In WSL after **cd "/mnt/c/Users/&lt;yourUserName>/VcXsrv"** run **"bash ./1_wsl_prepare_files.sh"**
++ In Administrator's Powershell after **cd "C:\Users\\&lt;yourUserName>\VcXsrv"** run **".\2_admin_copy_files.bat"**
++ After the above you can run either **"bash init_x.sh"** in WSL or **".\init_x.bat"** in Administrator's Powershell to see the windowed Desktop environment to appear (fingers crossed...)
