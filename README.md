@@ -38,3 +38,8 @@ and launch a **[kde desktop](https://kde.org/)**. The installed Distro is a **[D
 + In Administrator's Powershell after **cd "C:\Users\\&lt;yourUserName>\VcXsrv"** run **".\2_admin_copy_files.bat"**
 + After the above you can run either **"bash init_x.sh"** in WSL or **".\init_x.bat"** in Administrator's Powershell to see the windowed Desktop Environment to appear (fingers crossed...)
 + If you want the windowed Desktop Environment to be started when your login then create a symlink (short-cut) of the **"init_x.bat"**, cut it, go to your Startup directory. (Win-X -> Run -> shell:startup) and paste it there.
++ In order to be able to run x11 apps (eg xterm) from the WSL Debian terminal, which is out of the Desktop, place at the begining of your **.bashrc** the following
+```bash
+export LIBGL_ALWAYS_INDIRECT=1
+export DISPLAY=$(ipconfig.exe | grep IPv4 | cut -d: -f2 | sed -n -e '/^ 172/d' -e 's/ \([0-9\.]*\).*/\1:0.0/p')
+```
