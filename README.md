@@ -3,7 +3,7 @@
 Here are some scripts that make it easy, to make Linux X11 applications in `WSL2`, run on an `X11 Server` running natively on `Windows 10`. (Microsoft Windows 10, version 2004 ie 20H1)
 
 ## The problem
-After the upgrade to the `WSL2`, the Linux X11 appkications cannot connect to the X11 Windows Server, using
+After the upgrade to the `WSL2`, the Linux X11 applications cannot connect to the X11 Windows Server, using
 **DISPLAY=:0.0** or **DISPLAY=localhost:0.0**.
 
 This was caused from the fact that `WSL2` is based on containers, and for that reason each installed distribution is running under **Hyper-V** as a diffenent host, so it is not on **localhost**.
@@ -37,7 +37,7 @@ and launch a **[kde desktop](https://kde.org/)**. The installed Distro is a **[D
 + In WSL after **cd "/mnt/c/Users/&lt;yourUserName>/VcXsrv"** run **"bash ./1_wsl_prepare_files.sh"**
 + In Administrator's Powershell after **cd "C:\Users\\&lt;yourUserName>\VcXsrv"** run **".\2_admin_copy_files.bat"**
 + After the above you can run either **"bash init_x.sh"** in WSL or **".\init_x.bat"** in Administrator's Powershell to see the windowed Desktop Environment to appear (fingers crossed...)
-+ If you want the windowed Desktop Environment to be started when your login then create a symlink (short-cut) of the **"init_x.bat"**, cut it, go to your Startup directory. (Win-X -> Run -> shell:startup) and paste it there.
++ If you want the windowed Desktop Environment to be started when your login then create a symlink (short-cut) of the **"init_x.bat"**, cut it, go to your Startup directory. (Win-X -> Run -> shell:startup) and paste it there. The same shortcut can be placed in the desktop for easy access.
 + In order to be able to run x11 apps (eg xterm) from the WSL Debian terminal, which is out of the Desktop, place at the begining of your **.bashrc** the following
 ```bash
 export LIBGL_ALWAYS_INDIRECT=1
