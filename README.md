@@ -1,6 +1,5 @@
 # WSL2 - X11
-## What
-Here are some scripts that make it easy, to make Linux X11 applications in `WSL2`, run on an `X11 Server` running natively on `Windows 10`. (Microsoft Windows 10, version 2004 ie 20H1)
+Here are some scripts that make it possible and easy, to make Linux X11 applications in `WSL2`, run on an `X11 Server` running natively on `Windows 10`. (Microsoft Windows 10, version 2004 ie 20H1)
 
 ## The problem
 After the upgrade to the `WSL2`, the Linux X11 applications cannot connect to the X11 Windows Server, using
@@ -8,20 +7,29 @@ After the upgrade to the `WSL2`, the Linux X11 applications cannot connect to th
 
 This was caused from the fact that `WSL2` is based on containers, and for that reason each installed distribution is running under **Hyper-V** as a diffenent host, so it is not on **localhost**.
 
-The solutions that were proposed had to do with the use of the dynamic **IP** that was assigned to the host, but they didn't work.
+The solutions that were proposed (for example in [WSL/issues/4793](https://github.com/microsoft/WSL/issues/4793#issuecomment-577232999), [WSL/issues/4619](https://github.com/microsoft/WSL/issues/4619) ) had to do with the use of the **dynamic IP** that was assigned to the host, but they didn't work, maybe because it was assumed that the IP was the same as the IP of the nameserver that was stored in /etc/resolv.conf .
+
+After some experimentation, I noticed that a second IP was assined to the host. 
+The name server was from a `192.168.*.*` network and this one was from a `172.*.*.*` network.
+I thought that they were one for the Host/Windows side and the other for the the Container/WSL side, but
+after some time, (maybe after changing some Windows programs?) the IPs were from two different `192.168.*.*` networks.
+So it was clear that I could not rely on the networks and tried to find the external IP by asking the name server.
+The answer was a little bit tricky, because the Container/WSL was refered with the name server's IP and the second one.
+So I had do remove from the answer the Ip of the name server.
+
+Also I have to mention that
+ - (a) The IP was from the network that the Wifi Dhcp server was giving IPs.
+ - (a) The name of the Container/WSL is the same with the name of the Host/Windows, so actually that seems to be the correct question to the name server. 
+ - (b) If you happen to have installed a second Linux, (eg a Debian and an Ubuntu), then both of them are given the same name and the same IP. I need to try to find out how will it be possible to have different names and IPs.
 
 ## The solution
-After some ideas from [WSL/issues/4793](https://github.com/microsoft/WSL/issues/4793#issuecomment-577232999), [WSL/issues/4619](https://github.com/microsoft/WSL/issues/4619) and some experimenting, it was clear,
-that the host was given **two IPs**.
-One from an **172.*.*.* network** that was from **the Container/WSL side** and
-one fron an **192.168.*.* network** that was from **the Host/Windows side**.
-
-In order for the **X server**, that was running on **the Host/Windows side**, to accept the connection,
-the **DISPLAY** had to be **an IP** from **the Host/Windows side**.
-
-For the time being, the solution is 
+For the time being, the solution to find the **DISPLAY** is 
 ```bash
-export DISPLAY=$(ipconfig.exe | grep IPv4 | cut -d: -f2 | sed -n -e '/^ 172/d' -e 's/ \([0-9\.]*\).*/\1:0.0/p')
+export RX='[1-9][0-9]*\.[1-9][0-9]*\.[1-9][0-9]*\.[1-9][0-9]*'
+export RS=$(sed -n -e 's/nameserver \('$RX'\).*/\1/p' /etc/resolv.conf)
+export HS=$(cat /etc/hostname)
+export DN="0.0"
+export DISPLAY=$(dig $HS | sed -e '/^[;]/d' -e '/^$/d' -e '/'$RS'/d' -e 's/.*\t\('$RX'\).*/\1:'$DN'/')
 ```
 
 ## The automation
@@ -40,6 +48,9 @@ and launch a **[kde desktop](https://kde.org/)**. The installed Distro is a **[D
 + If you want the windowed Desktop Environment to be started when your login then create a symlink (short-cut) of the **"init_x.bat"**, cut it, go to your Startup directory. (Win-X -> Run -> shell:startup) and paste it there. The same shortcut can be placed in the desktop for easy access.
 + In order to be able to run x11 apps (eg xterm) from the WSL Debian terminal, which is out of the Desktop, place at the begining of your **.bashrc** the following
 ```bash
-export LIBGL_ALWAYS_INDIRECT=1
-export DISPLAY=$(ipconfig.exe | grep IPv4 | cut -d: -f2 | sed -n -e '/^ 172/d' -e 's/ \([0-9\.]*\).*/\1:0.0/p')
+export RX='[1-9][0-9]*\.[1-9][0-9]*\.[1-9][0-9]*\.[1-9][0-9]*'
+export RS=$(sed -n -e 's/nameserver \('$RX'\).*/\1/p' /etc/resolv.conf)
+export HS=$(cat /etc/hostname)
+export DN="0.0"
+export DISPLAY=$(dig $HS | sed -e '/^[;]/d' -e '/^$/d' -e '/'$RS'/d' -e 's/.*\t\('$RX'\).*/\1:'$DN'/')
 ```
