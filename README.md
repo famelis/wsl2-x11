@@ -1,5 +1,5 @@
 # WSL2 - X11
-Here are some scripts that make it possible and easy, to make Linux X11 applications in `WSL2`, run on an `X11 Server` running natively on `Windows 10`. (Microsoft Windows 10, version 2004 ie 20H1)
+Here are some scripts that make it possible and easy, to make Linux X11 applications in `WSL2` run on an `X11 Server` running natively on `Windows 10`. (Microsoft Windows 10, version 2004 ie 20H1)
 
 ## The problem
 After the upgrade to the `WSL2`, the Linux X11 applications cannot connect to the X11 Windows Server, using
@@ -11,16 +11,16 @@ The solutions that were proposed (for example in [WSL/issues/4793](https://githu
 
 After some experimentation, I noticed that a second IP was assined to the host. 
 The name server was from a `192.168.*.*` network and this one was from a `172.*.*.*` network.
-I thought that they were one for the Host/Windows side and the other for the the Container/WSL side, but
+I thought that they were one for the Host/Windows side and the other for the Container/WSL side, but
 after some time, (maybe after changing some Windows programs?) the IPs were from two different `192.168.*.*` networks.
 So it was clear that I could not rely on the networks and tried to find the external IP by asking the name server.
 The answer was a little bit tricky, because the Container/WSL was refered with the name server's IP and the second one.
 So I had do remove from the answer the Ip of the name server.
 
 Also I have to mention that
- - (a) The IP was from the network that the Wifi Dhcp server was giving IPs.
- - (a) The name of the Container/WSL is the same with the name of the Host/Windows, so actually that seems to be the correct question to the name server. 
- - (b) If you happen to have installed a second Linux, (eg a Debian and an Ubuntu), then both of them are given the same name and the same IP. I need to try to find out how will it be possible to have different names and IPs.
+ - (a) The IP is from the network that the Wifi Dhcp server is giving IPs.
+ - (b) The name of the Container/WSL is the same with the name of the Host/Windows, so actually that seems to be the correct question to the name server. 
+ - (c) If you happen to have installed a second Linux, (eg a Debian and an Ubuntu), then both of them are given the same name and the same IP. I need to try to find out how will it be possible to have different names and IPs.
 
 ## The solution
 For the time being, the solution to find the **DISPLAY** is 
