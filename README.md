@@ -17,9 +17,8 @@ If you happen to have installed a second Linux, (eg a Debian and an Ubuntu), the
 Following is a `bash` fragment to find the **DISPLAY**
 
 ```bash
-export RX='[1-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[1-9][0-9]*'
-export DN="0.0"
-export DISPLAY=$(sed -n 's/nameserver \('$RX'\).*/\1:'$DN'/p' /etc/resolv.conf | sed 1q )
+export DISPLAY_NUMBER="0.0"
+export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):$DISPLAY_NUMBER
 ```
 
 Place the lines at the begining of your **.bashrc**, in order to be able to run x11 apps (eg xterm) from the WSL command line.
@@ -31,7 +30,7 @@ and launch a **[kde desktop](https://kde.org/)**. The installed Distro is a **[D
 
 ### Prerequisites
 
-+ Install **WSL2** and the **Debian** distribution. 
++ Install **WSL2** and the **Debian** distribution.
 + Update Debian and install kde-desktop, net-tools, dbus, dnsutils etc.
 
 + Install **[VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/)** in the default directory **"C:\Program Files\VcXsrv"**. If you install it in another directory then you have to update the **prepare_files.sh** below, before the installation.
@@ -40,16 +39,17 @@ and launch a **[kde desktop](https://kde.org/)**. The installed Distro is a **[D
 
 + Download **install.bat** and **prepare_files.sh**
 + If needed, change **prepare_files.sh**
-  + If **VcXsrv** hasn't been installed in the default directory, then the change the **XSRV** variable.
+  + If **VcXsrv** hasn't been installed in the default directory, then change the **XSRV** variable.
   + If you want to run another desktop environment, change the here document that creates the **start_\<NAME>.sh**, that starts the X clients. After the installation the file is located in WSL home and can be changed later.
   + If you have installed **[arkane-systems/genie](https://github.com/arkane-systems/genie)**, in order to have **systemd** then uncomment the **GENIE** variable
 + Run **install.bat** as Administrator.
 + After the installation there is
   + a file **launch_debian.bat** in your Windows home directory
   + a file **launch_debian.sh"** in your WSL home
+  + a file **start_debian.sh"** in your WSL home that starts the X clients.
 
 ### How to Auto Start
 
-+ If you want the windowed Desktop Environment to be started when your login then create a symlink (short-cut) of the **"launch_\<NAME>.bat"**, cut it, go to your Startup directory. (Win-X -> Run -> shell:startup) and paste it there. The same shortcut can be placed in the desktop for easy access.
++ If you want the windowed Desktop Environment to be started when your login then create a symlink (short-cut) of the **"launch_debian.bat"**, cut it, go to your Startup directory. (Win-X -> Run -> shell:startup) and paste it there. The same shortcut can be placed in the desktop for easy access.
 
-Version: 2.0
+Version: 2.0.1

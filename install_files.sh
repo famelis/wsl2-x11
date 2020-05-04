@@ -2,10 +2,11 @@
 
 export NAME="debian"
 export WSL_DISTRIBUTION="Debian"
-
 # Uncomment next if systemd is used via genie
 # export GENIE="genie -c"
 
+# X server settings
+export DISPLAY_NUMBER="0.0"
 export XSRV="C:\\Program Files\\VcXsrv"
 WSL_XSRV=$(wslpath "$XSRV")
 
@@ -20,9 +21,7 @@ cat >start_$NAME.sh <<+EOF
 #!/bin/bash
 (
 	export LIBGL_ALWAYS_INDIRECT=1
-	export RX='[1-9][0-9]*\\.[0-9][0-9]*\\.[0-9][0-9]*\\.[1-9][0-9]*'
-	export DN="0.0"
-	export DISPLAY=\$(sed -n 's/nameserver \\('\$RX'\\).*/\\1:'\$DN'/p' /etc/resolv.conf | sed 1q )
+	export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):$DISPLAY_NUMBER
 
 	sudo su -c "service dbus start"
 	startkde
