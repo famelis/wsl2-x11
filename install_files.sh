@@ -21,7 +21,8 @@ cat >start_$NAME.sh <<+EOF
 #!/bin/bash
 (
 	export LIBGL_ALWAYS_INDIRECT=1
-	export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):$DISPLAY_NUMBER
+	export DISPLAY_NUMBER="$DISPLAY_NUMBER"
+	export DISPLAY=\$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):\$DISPLAY_NUMBER
 
 	sudo su -c "service dbus start"
 	startkde
