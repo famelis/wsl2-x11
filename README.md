@@ -33,12 +33,12 @@ and launch a **[kde desktop](https://kde.org/)**. The installed Distro is a **[D
 + Install **WSL2** and the **Debian** distribution.
 + Update Debian and install kde-desktop, net-tools, dbus, dnsutils etc.
 
-+ Install **[VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/)** in the default directory **"C:\Program Files\VcXsrv"**. If you install it in another directory then you have to update the **prepare_files.sh** below, before the installation.
++ Install **[VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/)** in the default directory **"C:\Program Files\VcXsrv"**. If you install it in another directory then you have to update the **install_files.sh** below, before the installation.
 
 ### Installation
 
-+ Download **[install.bat](https://github.com/famelis/wsl2-x11/raw/master/install.bat)** and **[prepare_files.sh](https://github.com/famelis/wsl2-x11/raw/master/prepare_files.sh)**
-+ If needed, change **prepare_files.sh**
++ Download **[install.bat](https://github.com/famelis/wsl2-x11/raw/master/install.bat)** and **[install_files.sh](https://github.com/famelis/wsl2-x11/raw/master/install_files.sh)**
++ If needed, change **install_files.sh**
   + If **VcXsrv** hasn't been installed in the default directory, then change the **XSRV** variable.
   + If you want to run another desktop environment, change the here document that creates the **start_\<NAME>.sh**, that starts the X clients. After the installation the file is located in WSL home and can be changed later.
   + If you have installed **[arkane-systems/genie](https://github.com/arkane-systems/genie)**, in order to have **systemd** then uncomment the **GENIE** variable
