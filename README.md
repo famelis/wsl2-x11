@@ -37,7 +37,7 @@ and launch a **[kde desktop](https://kde.org/)**. The installed Distro is a **[D
 
 ### Installation
 
-+ Download **install.bat** and **prepare_files.sh**
++ Download **[install.bat](https://github.com/famelis/wsl2-x11/raw/master/install.bat)** and **[prepare_files.sh](https://github.com/famelis/wsl2-x11/raw/master/prepare_files.sh)**
 + If needed, change **prepare_files.sh**
   + If **VcXsrv** hasn't been installed in the default directory, then change the **XSRV** variable.
   + If you want to run another desktop environment, change the here document that creates the **start_\<NAME>.sh**, that starts the X clients. After the installation the file is located in WSL home and can be changed later.
@@ -52,4 +52,4 @@ and launch a **[kde desktop](https://kde.org/)**. The installed Distro is a **[D
 
 + If you want the windowed Desktop Environment to be started when your login then create a symlink (short-cut) of the **"launch_debian.bat"**, cut it, go to your Startup directory. (Win-X -> Run -> shell:startup) and paste it there. The same shortcut can be placed in the desktop for easy access.
 
-Version: 2.0.1
+Version: 2.0.2
