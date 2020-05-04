@@ -1,4 +1,3 @@
-rem @ECHO OFF
+@ECHO OFF
 cd /D "%~dp0"
 wsl ./install_files.sh
-pause
