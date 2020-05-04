@@ -52,3 +52,4 @@ and launch a **[kde desktop](https://kde.org/)**. The installed Distro is a **[D
 
 + If you want the windowed Desktop Environment to be started when your login then create a symlink (short-cut) of the **"launch_\<NAME>.bat"**, cut it, go to your Startup directory. (Win-X -> Run -> shell:startup) and paste it there. The same shortcut can be placed in the desktop for easy access.
 
+Version: 2.0
