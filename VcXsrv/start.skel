@@ -1,2 +1,0 @@
-@echo off
-wsl $HOME/start_desktop.sh
